@@ -6,6 +6,9 @@
 # : 
 #
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+EXEC_DIR=$PWD
+
 # Time in minutes
 TIME="60m" 
 
@@ -19,7 +22,7 @@ export LC_ALL
 NUM_CORES=$(printf "$CORE_LIST" | wc -w)
 
 
-wasm_cyclictest="sudo ./james/wasm-micro-runtime/product-mini/platforms/linux-sgx/enclave-sample/iwasm --stack-size=1000000 --heap-size=2000000 --max-threads=4 --dir=/ ./james/cyclictest/cyclic.aot"
+wasm_cyclictest="sudo $EXEC_DIR/wasm-micro-runtime/product-mini/platforms/linux-sgx/enclave-sample/iwasm --stack-size=1000000 --heap-size=2000000 --max-threads=4 --dir=/ $SCRIPT_DIR/../wamr-cyclictest/cyclic.aot"
 
 
 #_-----------------------------------------------
@@ -34,7 +37,7 @@ echo "Running wamr cyclictest + hackbench"
 
 for core in $CORE_LIST
 do
-	sudo taskset -c $core ./hackbench -s 512 -l $NUM_LOOPS -g 64 -f 8 &
+	sudo taskset -c $core $SCRIPT_DIR/../native-cyclictest/rt-tests/hackbench -s 512 -l $NUM_LOOPS -g 64 -f 8 &
 	printf "hackbench[$!] started on core $core\n"
    
 done
