@@ -1,0 +1,52 @@
+# Copyright (C) 2023 Gramine contributors
+# SPDX-License-Identifier: BSD-3-Clause
+
+# Cyclictest manifest file example
+
+libos.entrypoint = "/cyclictest"
+loader.log_level = "{{ log_level }}"
+
+loader.env.LD_LIBRARY_PATH = "/lib"
+
+
+
+# Set maximum number of in-enclave threads (somewhat arbitrarily) to 8. Recall
+# that SGX v1 requires to specify the maximum number of simultaneous threads at
+# enclave creation time.
+#
+# Note that when EDMM is enabled, there is no need to specify a particular
+# number of threads, as Gramine will automatically adjust to the application
+# demands.
+#
+# Note that internally Gramine may spawn two additional threads, one for IPC
+# and one for asynchronous events/alarms. Redis is technically single-threaded
+# but spawns couple additional threads to do background bookkeeping. Therefore,
+# specifying '8' allows to run a maximum of 6 Redis threads which is enough.
+
+sgx.max_threads = {{ '1' if env.get('EDMM', '0') == '1' else '8' }}
+
+
+################################# ARGUMENTS ###################################
+
+# Hardcode application arguments. 
+# sudo gramine-sgx cyclictest -a 4-7 -t 4 -m -p 90 -i 100 -h 10000 -D 1m -r -n > gramine_idle.ct
+# Use time=1m for test; for real benchmarks, run for 60 minutes: -D 60m
+
+loader.argv = ["-a", "4-7", "-t", "4", "-m", "-p", "90", "-i", "100", "-h", "10000", "-D", "60m", "-r", "-n"]
+
+
+fs.mounts = [
+  { path = "/lib", uri = "file:{{ gramine.runtimedir() }}" },
+  { path = "/cpc", uri = "file:cyclictest" },
+  { type = "untrusted_shm", path = "/dev/shm/", uri = "dev:/dev/shm" },
+  
+]
+
+sgx.debug = true
+sgx.edmm_enable = {{ 'true' if env.get('EDMM', '0') == '1' else 'false' }}
+
+sgx.trusted_files = [
+  "file:cyclictest",
+  "file:{{ gramine.runtimedir() }}/",
+]
+

@@ -1,0 +1,108 @@
+diff --git a/product-mini/platforms/linux-sgx/CMakeLists.txt b/product-mini/platforms/linux-sgx/CMakeLists.txt
+index 20b3fdfa..5e8c05f5 100644
+--- a/product-mini/platforms/linux-sgx/CMakeLists.txt
++++ b/product-mini/platforms/linux-sgx/CMakeLists.txt
+@@ -34,7 +34,7 @@ endif ()
+ 
+ if (NOT DEFINED WAMR_BUILD_INTERP)
+   # Enable Interpreter by default
+-  set (WAMR_BUILD_INTERP 1)
++  set (WAMR_BUILD_INTERP 0)
+ endif ()
+ 
+ if (NOT DEFINED WAMR_BUILD_AOT)
+@@ -70,7 +70,7 @@ endif()
+ 
+ if (NOT DEFINED WAMR_BUILD_FAST_INTERP)
+   # Enable fast interpreter
+-  set (WAMR_BUILD_FAST_INTERP 1)
++  set (WAMR_BUILD_FAST_INTERP 0)
+ endif ()
+ 
+ if (NOT DEFINED WAMR_BUILD_MULTI_MODULE)
+@@ -98,6 +98,11 @@ if (NOT DEFINED WAMR_BUILD_STATIC_PGO)
+   set (WAMR_BUILD_STATIC_PGO 0)
+ endif ()
+ 
++# Override the global heap usage
++if (NOT DEFINED WAMR_BUILD_GLOBAL_HEAP_POOL)
++  set (WAMR_BUILD_GLOBAL_HEAP_POOL 1)
++endif ()
++
+ set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--gc-sections")
+ set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11 -ffunction-sections -fdata-sections \
+                                      -Wall -Wno-unused-parameter -Wno-pedantic \
+diff --git a/product-mini/platforms/linux-sgx/enclave-sample/Enclave/Enclave.config.xml b/product-mini/platforms/linux-sgx/enclave-sample/Enclave/Enclave.config.xml
+index cb08e347..e49618bd 100644
+--- a/product-mini/platforms/linux-sgx/enclave-sample/Enclave/Enclave.config.xml
++++ b/product-mini/platforms/linux-sgx/enclave-sample/Enclave/Enclave.config.xml
+@@ -2,11 +2,11 @@
+ <EnclaveConfiguration>
+   <ProdID>0</ProdID>
+   <ISVSVN>0</ISVSVN>
+-  <StackMaxSize>0x100000</StackMaxSize>
+-  <HeapMaxSize>0x8000000</HeapMaxSize>
+-  <ReservedMemMaxSize>0x1000000</ReservedMemMaxSize>
++  <StackMaxSize>0x10000</StackMaxSize>
++  <HeapMaxSize>0x600000</HeapMaxSize>
++  <ReservedMemMaxSize>0x800000</ReservedMemMaxSize>
+   <ReservedMemExecutable>1</ReservedMemExecutable>
+-  <TCSNum>10</TCSNum>
++  <TCSNum>5</TCSNum>
+   <TCSPolicy>1</TCSPolicy>
+   <DisableDebug>0</DisableDebug>
+   <MiscSelect>0</MiscSelect>
+diff --git a/product-mini/platforms/linux-sgx/enclave-sample/Makefile b/product-mini/platforms/linux-sgx/enclave-sample/Makefile
+index 8fd053a5..0e3579bc 100644
+--- a/product-mini/platforms/linux-sgx/enclave-sample/Makefile
++++ b/product-mini/platforms/linux-sgx/enclave-sample/Makefile
+@@ -5,15 +5,16 @@
+ 
+ SGX_SDK ?= /opt/intel/sgxsdk
+ SGX_SSL ?= /opt/intel/sgxssl
+-SGX_MODE ?= SIM
++SGX_MODE ?= HW
+ SGX_ARCH ?= x64
+ SGX_DEBUG ?= 0
+ SPEC_TEST ?= 0
++SGX_PRERELEASE = 1
+ 
+ # These variables are automatically set by CMakeLists.txt
+ WAMR_BUILD_SGX_IPFS = 0
+ WAMR_BUILD_LIB_RATS = 0
+-WAMR_BUILD_GLOBAL_HEAP_POOL = 0
++WAMR_BUILD_GLOBAL_HEAP_POOL = 1
+ WAMR_BUILD_GLOBAL_HEAP_SIZE = 10485760
+ WAMR_BUILD_STATIC_PGO = 0
+ WAMR_BUILD_LIBC_WASI = 1
+diff --git a/product-mini/platforms/linux/CMakeLists.txt b/product-mini/platforms/linux/CMakeLists.txt
+index 2e37b75f..061ec54d 100644
+--- a/product-mini/platforms/linux/CMakeLists.txt
++++ b/product-mini/platforms/linux/CMakeLists.txt
+@@ -49,7 +49,7 @@ endif ()
+ 
+ if (NOT DEFINED WAMR_BUILD_INTERP)
+   # Enable Interpreter by default
+-  set (WAMR_BUILD_INTERP 1)
++  set (WAMR_BUILD_INTERP 0)
+ endif ()
+ 
+ if (NOT DEFINED WAMR_BUILD_AOT)
+@@ -79,7 +79,7 @@ endif ()
+ 
+ if (NOT DEFINED WAMR_BUILD_FAST_INTERP)
+   # Enable fast interpreter
+-  set (WAMR_BUILD_FAST_INTERP 1)
++  set (WAMR_BUILD_FAST_INTERP 0)
+ endif ()
+ 
+ if (NOT DEFINED WAMR_BUILD_MULTI_MODULE)
+@@ -89,7 +89,7 @@ endif ()
+ 
+ if (NOT DEFINED WAMR_BUILD_LIB_PTHREAD)
+   # Disable pthread library by default
+-  set (WAMR_BUILD_LIB_PTHREAD 0)
++  set (WAMR_BUILD_LIB_PTHREAD 1)
+ endif ()
+ 
+ if (NOT DEFINED WAMR_BUILD_LIB_WASI_THREADS)
