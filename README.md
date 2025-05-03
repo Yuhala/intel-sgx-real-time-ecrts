@@ -16,7 +16,12 @@
     1. [Installing real-time patch 6.9.5-rt5](setup/install_rtos.md)
     2. [Install SGX tools](setup/install_sgx_tools.md)
 
-- **Server characteristics**: the SGX evaluations were conducted on a server equipped with an `8-core Intel Xeon Gold 5515+ CPU clocked at 3.20 GHz, 22.5 MiB L3 cache, and 128 GiB of DRAM`. The server runs Ubuntu 20.04.6 LTS and Linux RT version `6.9.5-rt5` with a fully preemptible kernel. The server has support for `Intel SGX` and was configured with `64 GiB of usable SGX EPC`. We used `Gramine SGX version 1.8` and WebAssembly Micro Runtime (WAMR) from commit `#0e4dffc4` for running workloads in SGX enclaves. 
+- **Server characteristics**: the SGX evaluations were conducted on a server equipped with an `8-core Intel Xeon Gold 5515+ CPU clocked at 3.20 GHz`, `22.5 MiB L3 cache`, and `128 GiB of DRAM`.
+- **OS characteristics**: the server runs Ubuntu 20.04.6 LTS and Linux RT version `6.9.5-rt5` with a fully preemptible kernel.
+- **Software characteristics**:
+    - **Intel SGX**: the server has support for Intel SGX and was configured with `64 GiB of usable SGX EPC`.
+    - **LibOS**: we used `Gramine SGX version 1.8`.
+    - **Wasm**: WebAssembly Micro Runtime (WAMR) from commit [#0e4dffc4](https://github.com/bytecodealliance/wasm-micro-runtime/commit/0e4dffc47922bb6fcdcaed7de2a6edfe8c48a7cd) + [the scheduler management extension](https://github.com/JamesMenetrey/wasm-micro-runtime/tree/scheduler/) for running workloads in SGX enclaves. 
 
 
 ## Cyclictest setup
@@ -62,16 +67,19 @@ loader.argv = ["-a", "4-7", "-t", "4", "-m", "-p", "90", "-i", "100", "-h", "100
 - As with the previous benchmark, the end of each cyclictest file `.ct` provides a recap of the minimum, average, and maximum latencies for the evaluated system.
 
 ## WAMR cyclictests
-- Change directory to the `scripts` folder.
+- Change directory to the root of the repository.
+- Install all the tools and compile WAMR runtime and cyclictest for Wasm.
 ```bash
-cd scripts
+scripts/wamr-install.sh
 ```
-- Start by installing the WAMR runtime by launching the `wamr-install.sh` script in the scripts folder `./wamr-install.sh`.
-- To run WAMR-based cyclictest in an SGX backed WAMR runtime with all the stressors as described in our paper, launch the script `run_cyclictest_wasm.sh` in the `scripts` folder.
+- To run WAMR-based cyclictest in an SGX backed WAMR runtime with all the stressors as described in our paper, execute the corresponding script.
+```bash
+scripts/run_cyclictest_wasm.sh
+```
 - A successful run will produce 4 files in the `results` folder of `wamr-cyclictest`: `wasm_idle.ct, wasm_hackbench.ct, wasm_stressng_irq.ct, wasm_stressng_vm.ct` representing the cyclictest results for the idle and stressed runs. 
 - Change directory to the wamr-cyclictest results folder: 
 ```bash
-cd ../wamr-cyclictest/results
+cd wamr-cyclictest/results
 ```
 - To process the results and generate corresponding plots, launch the `generate_histograms.sh` script in the same folder. This will produce a plot in `.png` format for each benchmark. The 4 generated plots correspond to those shown in `Figure 7` of our paper.
 - As with the previous benchmarks, the end of each cyclictest file `.ct` provides a recap of the minimum, average, and maximum latencies for the evaluated system.
