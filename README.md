@@ -82,6 +82,9 @@ scripts/run_cyclictest_wasm.sh
 cd wamr-cyclictest/results
 ```
 - To process the results and generate corresponding plots, launch the `generate_histograms.sh` script in the same folder. This will produce a plot in `.png` format for each benchmark. The 4 generated plots correspond to those shown in `Figure 7` of our paper.
+```bash
+./generate_histograms.sh
+```
 - As with the previous benchmarks, the end of each cyclictest file `.ct` provides a recap of the minimum, average, and maximum latencies for the evaluated system.
 
 
