@@ -61,31 +61,18 @@ loader.argv = ["-a", "4-7", "-t", "4", "-m", "-p", "90", "-i", "100", "-h", "100
 - To process the results and generate corresponding plots, launch the `generate_histograms.sh` script in the same folder. This will produce a plot in `.png` format for each benchmark. The 4 generated plots correspond to those shown in `Figure 8` of our paper.
 - As with the previous benchmark, the end of each cyclictest file `.ct` provides a recap of the minimum, average, and maximum latencies for the evaluated system.
 
-## Building WAMR 
-- Few modifications were done to adapt cyclictest to run in a WAMR runtime inside an SGX enclave. See this [Readme](wamr-cyclictest/README.md) for details on the modifications done. 
-- If you are using our pre-configured server, then move to the next section on [Running WAMR cyclictests](#running-wamr-cyclictests), otherwise continue with the following instructions on building the WAMR runtime.
-- Install WASI-SDK as described here: https://github.com/WebAssembly/wasi-sdk
-- Clone the `wasm-micro-runtime` (WAMR) and patch it.
+## WAMR cyclictests
+- Change directory to the `scripts` folder.
 ```bash
-git clone https://github.com/bytecodealliance/wasm-micro-runtime.git && cd wasm-micro-runtime
-git checkout 0e4dffc4
-git apply ../wamr_patch.diff
+cd scripts
 ```
-- Compile WAMR compiler.
+- Start by installing the WAMR runtime by launching the `wamr-install.sh` script in the scripts folder `./wamr-install.sh`.
+- To run WAMR-based cyclictest in an SGX backed WAMR runtime with all the stressors as described in our paper, launch the script `run_cyclictest_wasm.sh` in the `` folder.
+- A successful run will produce 4 files in the `results` folder of `wamr-cyclictest`: `wasm_idle.ct, wasm_hackbench.ct, wasm_stressng_irq.ct, wasm_stressng_vm.ct` representing the cyclictest results for the idle and stressed runs. 
+- Change directory to the wamr-cyclictest results folder: 
 ```bash
-sudo apt-get install git build-essential cmake g++-multilib libgcc-9-dev lib32gcc-9-dev ccache ninja-build
-cd wamr-compiler
-./build_llvm.sh (or "./build_llvm_xtensa.sh" to support xtensa target)
-mkdir build && cd build
-cmake .. (or "cmake .. -DWAMR_BUILD_PLATFORM=darwin" for MacOS)
-make
-# wamrc is generated under current directory
-WAMR_ROOT=<path_to_wamr> ./compile_wasm.sh
+cd ../wamr-cyclictest/results
 ```
-
-## Running WAMR cyclictests
-- To run Wasm-based cyclictest in an SGX backed WAMR runtime with all the stressors as described in our paper, launch the script `run_cyclictest_wasm.sh` in the `wamr-cyclictest` folder.
-- A successful run will produce 4 files in the `results` folder: `wasm_idle.ct, wasm_hackbench.ct, wasm_stressng_irq.ct, wasm_stressng_vm.ct` representing the cyclictest results for the idle and stressed runs. 
 - To process the results and generate corresponding plots, launch the `generate_histograms.sh` script in the same folder. This will produce a plot in `.png` format for each benchmark. The 4 generated plots correspond to those shown in `Figure 7` of our paper.
 - As with the previous benchmarks, the end of each cyclictest file `.ct` provides a recap of the minimum, average, and maximum latencies for the evaluated system.
 

@@ -1,16 +1,19 @@
 #!/bin/bash
 
-#!/bin/bash
-
 #
 # : 
 #
+
+
+# clean previous results
+rm -f *.ct
+
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 EXEC_DIR=$PWD
 
 # Time in minutes
-TIME="60m" 
+TIME="1m" 
 
 CORE_LIST="4 5 6 7"
 # Number of loops each pair of hackbench processes is executing
@@ -35,18 +38,23 @@ eval "$wasm_cyclictest" -a 4-7 -t $NUM_CORES -m -p 90 -i 100 -h 10000 -D $TIME -
 # 2. Wasm stressed pinned + hackbench on same CPUs
 echo "Running wamr cyclictest + hackbench"
 
+HACKBENCH_PIDS=()
 for core in $CORE_LIST
 do
-	sudo taskset -c $core $SCRIPT_DIR/../native-cyclictest/rt-tests/hackbench -s 512 -l $NUM_LOOPS -g 64 -f 8 &
-	printf "hackbench[$!] started on core $core\n"
+	sudo taskset -c $core $SCRIPT_DIR/../native-cyclictest/rt-tests/hackbench -s 512 -l $NUM_LOOPS -g 32 -f 8 &
+	HACKBENCH_PIDS+=($!)
+	printf "hackbench[${HACKBENCH_PIDS[-1]}] started on core $core\n"
    
 done
-eval "$wasm_cyclictest" -a 4-7 -t $NUM_CORES -m -p 90 -i 100 -h 10000 -D $TIME  -r -n > wasm_hackbench.ct
+eval "$wasm_cyclictest" -a 4-7 -t $NUM_CORES -m -p 90 -i 100 -h 10000 -D $TIME  -r -n > wasm_hackbench.ct & CYCLICTEST_PID=$!
 
-#sudo taskset -c 3-15 ./cyclictest -t 4 --interval=100 --distance=0 -D 60m -H 500 -r -n > native_pinned_stressed_diff.ct 
-wait
-# Kill all hackbench tasks
-sudo pkill -9 -f "hackbench"
+wait $CYCLICTEST_PID  # Wait for cyclictest only
+
+# Once cyclictest exits, kill all hackbench processes
+echo "cyclictest ended. Killing hackbench..."
+for pid in "${HACKBENCH_PIDS[@]}"; do 
+    sudo kill -9 $pid 2>/dev/null
+done
 
 
 # Stress-ng:
@@ -83,4 +91,7 @@ wait
 sudo pkill -9 -f "stress-ng"
 
 
+mv *.ct $SCRIPT_DIR/../wamr-cyclictest/results
 
+# reset terminal
+reset
