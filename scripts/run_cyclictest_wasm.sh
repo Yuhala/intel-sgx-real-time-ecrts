@@ -13,7 +13,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 EXEC_DIR=$PWD
 
 # Time in minutes
-TIME="1m" 
+TIME="60m" 
 
 CORE_LIST="4 5 6 7"
 # Number of loops each pair of hackbench processes is executing
