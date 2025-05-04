@@ -3,8 +3,9 @@
 - We provide code in three folders corresponding to each system to be tested. This readme provides instructions on how to setup and test these systems.
 
 ## For ECRTS artifact reviewers
-- Because setting up your system to run the benchmarks can be complex, reviewers can send their SSH public keys to the email: `peterson.yuhala@unine.ch` with subject `ECRTS artifact reviewer public key`.
-- We will then configure our server to allow remote SSH access to the pre-configured server to run the benchmarks. Once this is configured, you will receive a confirmation email on how to proceed to access the server remotely.
+- Because setting up your system to run the benchmarks can be complex, we have pre-configured a server which reviewers can access remotely to run the benchmarks.
+To use our pre-configured server, reviewers should send their SSH public keys to the email: `peterson.yuhala@unine.ch` with subject `ECRTS artifact reviewer public key`.
+- We will then configure the server to allow remote SSH access to run the benchmarks. Once the configuration is done, you will receive a confirmation email on how to proceed to access the server remotely.
 - We encourage the reviewers to organize time slots among themselves to prevent running experiments concurrently on the same server.
 - For reviewers using our pre-configured server via SSH, feel free to skip directly to the section [Native cyclictest](#native-cyclictest-baseline) to begin running the benchmarks. Otherwise, please setup your system as described in the following.
 
