@@ -39,11 +39,9 @@ sudp apt install gnuplot
 cd native-cyclictest/rt-tests
 make all
 ```
-- To run the artifact evaluation for cyclictest in the native environment with all the stressors as described in our paper, launch the script `run_cyclictest_native` in `native-cyclictest/rt-tests` folder.
+- To run the artifact evaluation for cyclictest in the native environment with all the stressors as described in our paper, launch the script `run_cyclictest_native.sh` in `native-cyclictest/rt-tests` folder.
 ```bash
-cd gramine-cyclictest
-cp ../native-cyclictest/rt-tests/hackbench .
-./run_cyclitest_native.sh
+./run_cyclictest_native.sh
 ```
 - A successful run will produce 4 files in the `results` folder: `native_idle.ct, native_hackbench.ct, native_stressng_irq.ct, native_stressng_vm.ct` representing the cyclictest results for the idle and stressed runs. 
 - To process the results and generate corresponding plots, launch the `generate_histograms.sh` script in the same folder. This will produce a plot in `.png` format for each benchmark. The 4 generated plots correspond to those shown in `Figure 6` of our paper.
@@ -57,8 +55,15 @@ cp ../native-cyclictest/rt-tests/hackbench .
 ## Gramine LibOS cyclictests
 - Install Gramine LibOS by following the instructions on the [Gramine LibOS website](https://gramine.readthedocs.io/en/stable/installation.html#ubuntu-22-04-lts-or-20-04-lts). Ideally, follow instructions for `Ubuntu 22.04 LTS or 20.04 LTS`.
 - Copy the built `hackbench` binary from `native-cyclictest/rt-tests` folder into the `gramine-cyclictest` folder.
+```bash
+cd gramine-cyclictest
+cp ../native-cyclictest/rt-tests/hackbench .
+```
 - Test cyclictest for Gramine by launching the `build.sh` script in the `gramine-cyclictest` folder: the test runs cyclictest for `60s` in Gramine LibOS and outputs the results in the file `gramine_idle.ct`. A successful test will produce results in this file.
-- To run the artifact evaluation for cyclictest in Gramine-LibOS  with all the stressors as described in our paper, launch the script `run_cyclictest_gramine.sh` in the `gramine-cyclictest` folder.
+- To run the actual benchmark for cyclictest in Gramine-LibOS  with all the stressors as described in our paper, launch the script `run_cyclictest_gramine.sh` in the `gramine-cyclictest` folder.
+```bash
+./run_cyclitest_gramine.sh
+```
 - We note that the Gramine manifest file [cyclictest.manifest.template](gramine-cyclictest/cyclictest.manifest.template) has been preconfigured with all the options to run cyclictest in Gramine LibOS for `60 minutes` as described in the paper. The line which configures these arguments is:
 ```bash
 loader.argv = ["-a", "4-7", "-t", "4", "-m", "-p", "90", "-i", "100", "-h", "10000", "-D", "60m", "-r", "-n"]
