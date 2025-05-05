@@ -1,6 +1,7 @@
 ## About
-- This artifact contains code and instructions required to reproduce the following results in our paper: cyclictests for Intel SGX enclaves on Gramine LibOS and WAMR environment (for WASM), and cyclictest for a native (non TEE) environment, considered the baseline.
-- We provide code in three folders: `native-cyclictest`, `gramine-cyclictest`, `wamr-cyclictest` corresponding to each system to be tested. This readme provides instructions on how to setup and benchmark these systems.
+- This artifact contains code and instructions required to reproduce the following results in our ECRTS 2025 paper - _On Real-Time Guarantees in Intel SGX and TDX_. 
+- The artifact provides guidelines to run cyclictests for Intel SGX enclaves on Gramine LibOS and WAMR environment (for WASM), and cyclictest for a native (non TEE) environment, considered the baseline.
+- The repository provides code in three folders: `native-cyclictest`, `gramine-cyclictest`, `wamr-cyclictest` corresponding to each system to be tested; the remainder of this readme provides instructions on how to setup and benchmark these systems.
 - For legal and administrative reasons, we cannot grant access to our Intel TDX server, so instructions to test results for Intel TDX are not part of this readme.
 
 
