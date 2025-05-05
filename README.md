@@ -15,7 +15,7 @@ To use our pre-configured server, reviewers should send their SSH public keys to
 ## Prerequisites and system setup
 - The instructions here are for a Linux-based system: we tested on both Ubuntu 22.04.5 LTS and Ubuntu 20.04.
 - Install an appropriate Linux real-time patch. We used RT Linux version `6.9.5-rt5` with the PREEMPT patch.
-- Install the SGX software development kit (SDK) and platform software (PSW). 
+- Install the SGX software development kit (SDK), platform software (PSW), and SGX Linux kernel driver.
 - To assist in setting up these tools, see instructions in the corresponding readmes in the `setup` folder:
     1. [Installing real-time patch 6.9.5-rt5](setup/install_rtos.md)
     2. [Install SGX tools](setup/install_sgx_tools.md)
