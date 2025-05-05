@@ -37,6 +37,11 @@ sudp apt install gnuplot
 ```
 
 ## Native cyclictest (baseline)
+- Begin by cloning this repository
+```bash
+git clone https://github.com/Yuhala/intel-sgx-real-time-ecrts.git
+cd intel-sgx-real-time-ecrts
+```
 - Build cyclictest and hackbench
 ```bash
 cd native-cyclictest/rt-tests
