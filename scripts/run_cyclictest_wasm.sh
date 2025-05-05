@@ -59,11 +59,11 @@ done
 
 # Stress-ng:
 # 3. Stress-ng CPU
-echo "Running wamr cyclictest + stress-ng cpu"
-sudo stress-ng --taskset 4-7 --cpu 4 --cpu-method fft -t $TIME &
-eval "$wasm_cyclictest" -a 4-7 -t $NUM_CORES -m -p 90 -i 100 -h 10000 -D $TIME -r -n > wasm_stressng_cpu.ct
-wait
-sudo pkill -9 -f "stress-ng"
+# echo "Running wamr cyclictest + stress-ng cpu"
+# sudo stress-ng --taskset 4-7 --cpu 4 --cpu-method fft -t $TIME &
+# eval "$wasm_cyclictest" -a 4-7 -t $NUM_CORES -m -p 90 -i 100 -h 10000 -D $TIME -r -n > wasm_stressng_cpu.ct
+# wait
+# sudo pkill -9 -f "stress-ng"
 
 
 # 4. Stress-ng Virtual memory
@@ -84,11 +84,11 @@ sudo pkill -9 -f "stress-ng"
 
 
 # 6. Stress-ng Major page faults
-echo "Running wamr cyclictest + stress-ng page faults"
-sudo stress-ng --taskset 4-7 --userfaultfd 4 --perf -t $TIME &
-eval "$wasm_cyclictest" -a 4-7 -t $NUM_CORES -m -p 90 -i 100 -h 10000 -D $TIME -r -n > wasm_stressng_pgfaults.ct
-wait
-sudo pkill -9 -f "stress-ng"
+# echo "Running wamr cyclictest + stress-ng page faults"
+# sudo stress-ng --taskset 4-7 --userfaultfd 4 --perf -t $TIME &
+# eval "$wasm_cyclictest" -a 4-7 -t $NUM_CORES -m -p 90 -i 100 -h 10000 -D $TIME -r -n > wasm_stressng_pgfaults.ct
+# wait
+# sudo pkill -9 -f "stress-ng"
 
 
 mv *.ct $SCRIPT_DIR/../wamr-cyclictest/results

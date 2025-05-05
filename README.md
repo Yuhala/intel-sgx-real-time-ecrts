@@ -49,7 +49,7 @@ make all
 ```
 - To run the artifact evaluation for cyclictest in the native environment with all the stressors as described in our paper, launch the script `run_cyclictest_native.sh` in `native-cyclictest/rt-tests` folder.
 ```bash
-./run_cyclictest_native.sh
+./run_cyclictest_native.sh # Estimated run time ~ 4 hours
 ```
 - A successful run will produce 4 files in the `results` folder: `native_idle.ct, native_hackbench.ct, native_stressng_irq.ct, native_stressng_vm.ct` representing the cyclictest results for the idle and stressed runs. 
 - To process the results and generate corresponding plots, launch the `generate_histograms.sh` script in the same folder. This will produce a plot in `.png` format for each benchmark. The 4 generated plots correspond to those shown in `Figure 6` of our paper.
@@ -70,7 +70,7 @@ cp ../native-cyclictest/rt-tests/hackbench .
 - Test cyclictest for Gramine by launching the `build.sh` script in the `gramine-cyclictest` folder: the test runs cyclictest for `60s` in Gramine LibOS and outputs the results in the file `gramine_idle.ct`. A successful test will produce results in this file.
 - To run the actual benchmark for cyclictest in Gramine-LibOS  with all the stressors as described in our paper, launch the script `run_cyclictest_gramine.sh` in the `gramine-cyclictest` folder.
 ```bash
-./run_cyclitest_gramine.sh
+./run_cyclitest_gramine.sh # Estimated run time ~ 4 hours
 ```
 - We note that the Gramine manifest file [cyclictest.manifest.template](gramine-cyclictest/cyclictest.manifest.template) has been preconfigured with all the options to run cyclictest in Gramine LibOS for `60 minutes` as described in the paper. The line which configures these arguments is:
 ```bash
@@ -88,7 +88,7 @@ scripts/wamr-install.sh
 ```
 - To run WAMR-based cyclictest in an SGX backed WAMR runtime with all the stressors as described in our paper, execute the corresponding script.
 ```bash
-scripts/run_cyclictest_wasm.sh
+scripts/run_cyclictest_wasm.sh # Estimated run time ~ 4 hours
 ```
 - A successful run will produce 4 files in the `results` folder of `wamr-cyclictest`: `wasm_idle.ct, wasm_hackbench.ct, wasm_stressng_irq.ct, wasm_stressng_vm.ct` representing the cyclictest results for the idle and stressed runs. 
 - Change directory to the wamr-cyclictest results folder: 

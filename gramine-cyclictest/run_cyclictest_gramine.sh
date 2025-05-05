@@ -63,12 +63,12 @@ done
 
 # Stress-ng:
 # 3. Stress-ng CPU
-echo "Running Gramine cyclictest + stress-ng cpu"
-sudo stress-ng --taskset 4-7 --cpu 4 --cpu-method fft -t $TIME &
-#eval "$gramine_cyclictest" -a 4-7 -t $NUM_CORES -m -p 90 -i 100 -h 10000 -D $TIME -r -n > gramine_stressng_cpu.ct
-sudo gramine-sgx cyclictest > gramine_stressng_cpu.ct
-wait
-sudo pkill -9 -f "stress-ng"
+# echo "Running Gramine cyclictest + stress-ng cpu"
+# sudo stress-ng --taskset 4-7 --cpu 4 --cpu-method fft -t $TIME &
+# eval "$gramine_cyclictest" -a 4-7 -t $NUM_CORES -m -p 90 -i 100 -h 10000 -D $TIME -r -n > gramine_stressng_cpu.ct
+# sudo gramine-sgx cyclictest > gramine_stressng_cpu.ct
+# wait
+# sudo pkill -9 -f "stress-ng"
 
 
 # 4. Stress-ng Virtual memory
