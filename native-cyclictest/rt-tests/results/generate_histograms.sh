@@ -5,6 +5,7 @@
 rm histogram*
 rm *.png plotcmd
 
+echo "Generating native-cyclictest plots ..."
 names=("native_idle" "native_hackbench" "native_stressng_vm" "native_stressng_irq")
 
 for name in "${names[@]}"
