@@ -53,8 +53,9 @@ make all
 ./run_cyclictest_native.sh # Estimated run time ~ 4 hours
 ```
 - A successful run will produce 4 files in the `results` folder: `native_idle.ct, native_hackbench.ct, native_stressng_irq.ct, native_stressng_vm.ct` representing the cyclictest results for the idle and stressed runs. 
-- To process the results and generate corresponding plots, launch the `generate_histograms.sh` script in the same folder.
+- To process the results and generate corresponding plots, launch the `generate_histograms.sh` script in the `results` folder.
 ```bash
+cd results
 ./generate_histograms.sh
 ```
 - This will produce a plot in `.png` format for each benchmark. The 4 generated plots correspond to those shown in `Figure 6` of our paper.
