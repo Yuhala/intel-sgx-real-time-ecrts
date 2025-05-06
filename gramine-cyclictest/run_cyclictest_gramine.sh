@@ -9,6 +9,9 @@
 
 # clean previous results
 rm -f *.ct
+rm -f ./results/*.ct
+rm -f ./results/histogram*
+rm -f ./results/*.png
 
 
 # Time in minutes
