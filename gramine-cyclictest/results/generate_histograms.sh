@@ -4,7 +4,7 @@
 ./clean_cyclictest_results.sh
 rm histogram*
 rm *.png plotcmd
-
+echo "Generating gramine-cyclictest plots ..."
 names=("gramine_idle" "gramine_hackbench" "gramine_stressng_vm" "gramine_stressng_irq")
 
 for name in "${names[@]}"
