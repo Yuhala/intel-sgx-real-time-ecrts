@@ -4,7 +4,7 @@
 ./clean_cyclictest_results.sh
 rm histogram*
 rm *.png
-
+echo "Generating wamr-cyclictest plots ..."
 names=("wasm_idle" "wasm_hackbench" "wasm_stressng_vm" "wasm_stressng_irq")
 
 for name in "${names[@]}"
