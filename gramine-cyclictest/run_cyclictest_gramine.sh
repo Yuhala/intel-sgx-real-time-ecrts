@@ -1,12 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
-#
-# : 
-#
-
-
 # clean previous results
 rm -f *.ct
 rm -f ./results/*.ct
