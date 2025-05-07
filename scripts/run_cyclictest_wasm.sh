@@ -4,6 +4,7 @@
 # : 
 #
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # clean previous results
 rm -f *.ct
@@ -12,7 +13,7 @@ rm -f $SCRIPT_DIR/../wamr-cyclictest/results/histogram*
 rm -f $SCRIPT_DIR/../wamr-cyclictest/results/*.png
 
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 EXEC_DIR=$PWD
 
 # Time in minutes
