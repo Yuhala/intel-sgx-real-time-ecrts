@@ -90,11 +90,11 @@ loader.argv = ["-a", "4-7", "-t", "4", "-m", "-p", "90", "-i", "100", "-h", "100
 - Change directory to the root of the repository.
 - Install all the tools and compile WAMR runtime and cyclictest for Wasm.
 ```bash
-scripts/wamr-install.sh
+./scripts/wamr-install.sh
 ```
 - To run WAMR-based cyclictest in an SGX backed WAMR runtime with all the stressors as described in our paper, execute the corresponding script.
 ```bash
-scripts/run_cyclictest_wasm.sh # Estimated run time ~ 4 hours
+./scripts/run_cyclictest_wasm.sh # Estimated run time ~ 4 hours
 ```
 - A successful run will produce 4 files in the `results` folder of `wamr-cyclictest`: `wasm_idle.ct, wasm_hackbench.ct, wasm_stressng_irq.ct, wasm_stressng_vm.ct` representing the cyclictest results for the idle and stressed runs. 
 - Change directory to the wamr-cyclictest results folder: 
