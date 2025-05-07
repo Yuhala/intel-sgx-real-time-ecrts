@@ -90,7 +90,7 @@ loader.argv = ["-a", "4-7", "-t", "4", "-m", "-p", "90", "-i", "100", "-h", "100
 - Change directory to the root of the repository.
 - Install all the tools and compile WAMR runtime and cyclictest for Wasm.
 ```bash
-./scripts/wamr-install.sh
+./scripts/wamr-install.sh # Estimated run time ~ 45 minutes
 ```
 - To run WAMR-based cyclictest in an SGX backed WAMR runtime with all the stressors as described in our paper, execute the corresponding script.
 ```bash
