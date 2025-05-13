@@ -11,7 +11,7 @@ To use our pre-configured server, reviewers should send their SSH public keys to
 - We will then configure the server to allow remote SSH access to run the benchmarks. Once the configuration is done, you will receive a confirmation email on how to proceed to access the server remotely.
 - We encourage the reviewers to organize time slots among themselves to prevent running experiments concurrently on the same server.
 - For reviewers using our pre-configured server via SSH, you could skip to the section [Native cyclictest](#native-cyclictest-baseline) to begin running the benchmarks. Otherwise, please setup your system as described in the following section.
-- The estimated total run time for all the benchmarks is about 12 hours (server setup time not included).
+- The estimated total run time for all the benchmarks is about 15 hours (server setup time not included).
 
 ## Prerequisites and system setup
 - The instructions here are for a Linux-based system: we tested on both Ubuntu 22.04.5 LTS and Ubuntu 20.04.
