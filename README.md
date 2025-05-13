@@ -67,7 +67,7 @@ cd results
 ```
 
 ## Gramine LibOS cyclictests
-- Install Gramine LibOS by following the instructions on the [Gramine LibOS website](https://gramine.readthedocs.io/en/stable/installation.html#ubuntu-22-04-lts-or-20-04-lts). Ideally, follow instructions for `Ubuntu 22.04 LTS or 20.04 LTS`.
+- Install Gramine LibOS by following the instructions on the [Gramine LibOS website](https://gramine.readthedocs.io/en/stable/installation.html#ubuntu-22-04-lts-or-20-04-lts). Ideally, follow instructions for `Ubuntu 22.04 LTS or 20.04 LTS`. NB: If using the pre-configured server, this step has already been done.
 - Copy the built `hackbench` binary from `native-cyclictest/rt-tests` folder into the `gramine-cyclictest` folder.
 ```bash
 cd gramine-cyclictest
