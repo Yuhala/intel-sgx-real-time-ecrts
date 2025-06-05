@@ -15,16 +15,9 @@
 
 
 ## Testing the installations
-- The tool `sgx-detect` in this repo allows you to check your system system for SGX support as well as confirm the successful installation of the SGX driver, PSW, and SDK.
-- Make the binary executable and run it as follows:
-```bash
-chmod +x sgx-detect
-sudo ./sgx-detect
-```
-- You should have something similar to the following results.
-![sgx-detect output](./sgx-detect.png)
-- To run a simple SGX application, your results should have ticks at atleast: `SGX instruction set` --> `CPU support` and `SGX system software` --> `SGX kernel device`
-
+- Fortanix provides a nice tool, `sgx-detect` which can be used to test for SGX hardware as well as SGX software installations.
+- Follow instructions on [this page](https://fortanix.zendesk.com/hc/en-us/articles/4414753648788-SGX-Detect-Tool) to download and test the `sgx-detect` tool on your system.
+- If the output shows successful SGX software installations, you can go ahead to test a simple SGX program as explained below.
 ## Running simple SGX application
 - Clone the official Intel SGX SDK repo and build a sample enclave as below:
 ```bash
