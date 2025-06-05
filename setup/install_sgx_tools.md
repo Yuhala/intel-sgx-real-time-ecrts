@@ -12,3 +12,26 @@
 - To build the SDK, PSW and driver from source (not recommended for beginners), follow the guidelines provided in the following repositories:
 1. https://github.com/intel/linux-sgx
 2. https://github.com/intel/linux-sgx-driver
+
+
+## Testing the installations
+- The tool `sgx-detect` in this repo allows you to check your system system for SGX support as well as confirm the successful installation of the SGX driver, PSW, and SDK.
+- Make the binary executable and run it as follows:
+```bash
+chmod +x sgx-detect
+sudo ./sgx-detect
+```
+- You should have something similar to the following results.
+![sgx-detect output](./sgx-detect.png)
+- To run a simple SGX application, your results should have ticks at atleast: `SGX instruction set` --> `CPU support` and `SGX system software` --> `SGX kernel device`
+
+## Running simple SGX application
+- Clone the official Intel SGX SDK repo and build a sample enclave as below:
+```bash
+git clone https://github.com/intel/linux-sgx.git
+cd linux-sgx/SampleCode/SampleEnclave
+make 
+./app
+```
+- If you have errors running the above, consider sending me an email at `petersonyuhala@gmail.com` with subject `SGX install issues`.
+
